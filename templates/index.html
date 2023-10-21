@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Generador de Articulos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<body>
+    <h1>Escribe el nombre de un producto</h1>
+    <form action="/" method="post">
+        <input type="text" name="product" placeholder="Nombre del producto" required />
+        <input type="submit" value="Genera el artículo" />
+    </form>
+    {% if result %}
+    <div class="result-container">
+        <div class="result">
+            <h3 class="product-header">{{ product_header }}</h3>
+            <div class="product-intruduction">
+                {% autoescape false %}
+                {{ product_introduction | replace("\n", "<br/>") }}
+                {% endautoescape %}
+            </div>
+            <h3 class="product-features">Las carácterísticas técnicas de {{ product_name }} son:</h3>
+            <div class="product-list">
+                <ul>
+                    {% for item in product_list %}
+                    <li> {{item}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h3 class="product-advantages">Las ventajas de {{ product_name }} son:</h3>
+            <div class="product-advantages-list">
+                <ul>
+                    {% for item in product_advantages %}
+                    <li> {{item}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h3 class="product-conclusion-header">Conclusión de {{ product_name }}</h3>
+            <div class="product-conclusion">
+                {% autoescape false %}
+                En conclusión a lo visto anteriormente
+                {{ product_conclusion | replace("\n", "<br/>") }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
